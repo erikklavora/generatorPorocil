@@ -31,8 +31,11 @@ def create_report(xml_file):
     date_str = filename_parts[3]  # 020525
     time_str = filename_parts[4]  # 094143
     
-    # Pretvori datum in čas iz imena datoteke
-    file_datetime = datetime.strptime(f"20{date_str} {time_str}", "%Y%m%d %H%M%S")
+    # Pretvori datum in čas iz imena datoteke (mmddyy format)
+    month = date_str[:2]  # 02
+    day = date_str[2:4]   # 05
+    year = date_str[4:]   # 25
+    file_datetime = datetime.strptime(f"20{year}{month}{day} {time_str}", "%Y%m%d %H%M%S")
     slo_date = file_datetime.strftime("%d.%m.%Y")
     
     # Ustvari PDF
@@ -117,7 +120,7 @@ def create_report(xml_file):
     
     # Dodaj nogo (pred c.save())
     c.setFont("Arial", 8)
-    c.drawString(50, 30, "App za kreiranje poročil v.1.0.0, kreiral Erik Klavora 2025")
+    c.drawString(50, 30, "App za kreiranje poročil v.1.0.1, kreiral Erik Klavora 2025")
     
     # Shrani PDF
     c.save()
